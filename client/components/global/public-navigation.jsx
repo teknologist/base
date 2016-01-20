@@ -1,7 +1,6 @@
 PublicNavigation = React.createClass({
   items: [
     { name: 'login', path: '/login', label: 'Login' },
-    { name: 'signup', path: '/signup', label: 'Signup with Invite' },
     { name: 'invite', path: '/invite', label: 'Request Invite' }
   ],
   render() {

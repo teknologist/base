@@ -1,3 +1,21 @@
+injectTapEventPlugin();
+
+var {
+    AppCanvas,
+    AppBar,
+    LeftNav,
+    Styles,
+    RaisedButton,
+    DatePicker,
+    IconButton,
+    IconMenu,
+    MenuItem,
+    ActionFace
+    } = MUI;
+
+var { ThemeManager, LightRawTheme } = Styles;
+
+let {SvgIcons} = MUI.Libs;
 AuthenticatedNavigation = React.createClass({
   mixins: [ ReactMeteorData ],
   getMeteorData() {
@@ -19,31 +37,41 @@ AuthenticatedNavigation = React.createClass({
 
     return items;
   },
+  navigateToTarget(event,item) {
+  console.log(item);
+   FlowRouter.go(item.props.value);
+  },
   logout( event ) {
     event.preventDefault();
     return Meteor.logout( () => FlowRouter.go( '/login' ) );
   },
-  render() {
-    return <Navbar>
-      <NavbarItems>
-        { this.items().map( ( item, index ) => {
-          return <li key={ `authenticated-nav-item_${ index }` } className={ FlowHelpers.currentRoute( item.name ) }>
-            <a href={ item.path }>{ item.label }</a>
-          </li>;
-        })}
-      </NavbarItems>
-      <NavbarItems position="navbar-right">
-        <li className="dropdown">
-          <a href="#" className="user-profile-toggle dropdown-toggle clearfix" data-toggle="dropdown">
-            { this.data.currentUserEmail }
-            <span className="caret"></span>
-          </a>
-          <ul className="dropdown-menu" role="menu">
-            <li><a href="/preferences">Account Preferences</a></li>
-            <li className="logout" onClick={ this.logout }><a href="#">Logout</a></li>
-          </ul>
-        </li>
-      </NavbarItems>
-    </Navbar>;
-  }
+render: function () {
+  return (<AppBar
+    title='Project Asteroid ❤ Meteor ❤ React ❤ Material UI'
+
+    iconElementRight={
+  <IconMenu
+    onItemTouchTap={ this.navigateToTarget }
+    iconButtonElement={
+      <IconButton><SvgIcons.ActionFace /></IconButton>
+    }
+    targetOrigin={{horizontal: 'right', vertical: 'top'}}
+    anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+  >
+      { this.items().map( ( item, index ) => {
+        return  <MenuItem primaryText={ item.label } key={ `authenticated-nav-item_${ index }` } value={ item.path } />;
+      })}
+      <MenuItem primaryText='Logout'  onClick={ this.logout }/>
+    </IconMenu>
+}
+></AppBar>
+);
+}
+
+
+
+
+
+
+
 });

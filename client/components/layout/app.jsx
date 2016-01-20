@@ -1,5 +1,61 @@
+injectTapEventPlugin();
+
+var {
+    AppCanvas,
+    AppBar,
+    LeftNav,
+    Styles,
+    RaisedButton,
+    DatePicker,
+    IconButton,
+    IconMenu,
+    MenuItem,
+    ActionFace
+    } = MUI;
+
+var { ThemeManager, LightRawTheme } = Styles;
+
+let {SvgIcons} = MUI.Libs;
+
+// .dark-primary-color    { background: #455A64; }
+// .default-primary-color { background: #607D8B; }
+// .light-primary-color   { background: #CFD8DC; }
+// .text-primary-color    { color: #FFFFFF; }
+// .accent-color          { background: #FFC107; }
+// .primary-text-color    { color: #212121; }
+// .secondary-text-color  { color: #727272; }
+// .divider-color         { border-color: #B6B6B6; }
+
+
+let appPalette =  {
+    primary1Color: '#455A64',
+    primary2Color: '#607D8B',
+    primary3Color: Styles.Colors.lightBlack,
+    accent1Color: '#FFC107',
+    accent2Color: '#FFC107',
+    accent3Color: '#FFC107',
+    textColor: '#212121',
+    alternateTextColor: Styles.Colors.white,
+    canvasColor: Styles.Colors.white,
+    borderColor: Styles.Colors.grey300,
+    disabledColor: Styles.Colors.grey500,
+    pickerHeaderColor: '#FFC107'
+  };
+
+  var Theme = ThemeManager.getMuiTheme(MUI.Styles.LightRawTheme);
+  var newTheme = ThemeManager.modifyRawThemePalette(Theme,appPalette);
+
 App = React.createClass({
   mixins: [ ReactMeteorData ],
+  childContextTypes: {
+        muiTheme: React.PropTypes.object
+    },
+
+    getChildContext() {
+        return {
+            muiTheme: newTheme
+        };
+    },
   getMeteorData() {
     return {
       loggingIn: Meteor.loggingIn(),
@@ -38,11 +94,25 @@ App = React.createClass({
     }
   },
   render() {
-    return <div className="app-root">
+
+
+  return (
+    <AppCanvas>
       <AppHeader hasUser={ this.data.hasUser } />
-      <div className="container">
-        { this.data.loggingIn ? this.loading() : this.getView() }
-      </div>
-    </div>;
-  }
+
+        <div className="container">
+            { this.data.loggingIn ? this.loading() : this.getView() }
+        </div>
+    </AppCanvas>
+  );
+}
+
+    //
+    // return <div className="app-root">
+    //   <AppHeader hasUser={ this.data.hasUser } />
+    //   <div className="container">
+    //     { this.data.loggingIn ? this.loading() : this.getView() }
+    //   </div>
+    // </div>;
+//  }
 });

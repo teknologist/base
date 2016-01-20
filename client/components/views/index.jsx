@@ -6,13 +6,11 @@ Index = React.createClass({
     return {};
   },
   render() {
-    return <Jumbotron className="text-center">
-      <h2>Base</h2>
-      <p>A starting point for Meteor applications.</p>
-      <p>
-        <SuccessButton href="http://themeteorchef.com/base" label="Read the Documentation" />
-      </p>
-      <p style={{ fontSize: '16px', color: '#aaa' }}>Currently at v3.3.0</p>
-    </Jumbotron>;
-  }
+      return <div classNameName="index">
+        <PageHeader label="Welcome to Project Asteroid." />
+
+        <p>Project Asteroid is a super secret app that's launching soon! Type in your email below to get on the beta list.</p>
+        
+      </div>;
+    }
 });

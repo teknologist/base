@@ -1,8 +1,8 @@
 @import "tools/extends";
+@import "tools/helpers";
 
-@import "components/generic/jumbotron";
-@import "components/generic/forms/form-control";
+@import "objects/forms";
 
-@import "components/global/loading";
-
-@import "components/views/login";
+@import "components/index";
+@import "components/login";
+@import "components/nav-tabs";

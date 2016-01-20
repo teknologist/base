@@ -1,18 +1,18 @@
 PublicNavigation = React.createClass({
-  mixins: [ ReactMeteorData ],
-  getMeteorData() {
-    return {
-      items: {
-        right: [
-          { uid: 'login', href: '/login', label: 'Log In' },
-          { uid: 'signup', href: '/signup', label: 'Sign Up' }
-        ]
-      }
-    };
-  },
+  items: [
+    { name: 'login', path: '/login', label: 'Login' },
+    { name: 'signup', path: '/signup', label: 'Signup with Invite' },
+    { name: 'invite', path: '/invite', label: 'Request Invite' }
+  ],
   render() {
-    return <div className="public-navigation">
-      <NavBarNav position={ `navbar-right` } items={ this.data.items.right } />
-    </div>;
+    return <Navbar>
+      <NavbarItems position="navbar-right">
+        { this.items.map( ( item, index ) => {
+          return <li key={ `public-nav-item_${ index }` } className={ FlowHelpers.currentRoute( item.name ) }>
+            <a href={ item.path }>{ item.label }</a>
+          </li>;
+        })}
+      </NavbarItems>
+    </Navbar>;
   }
 });

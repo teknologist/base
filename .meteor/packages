@@ -38,3 +38,7 @@ react
 peerlibrary:aws-sdk
 random
 kadira:react-layout
+mrt:moment
+alanning:roles
+email
+izzilab:material-ui

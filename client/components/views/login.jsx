@@ -51,7 +51,7 @@ Login = React.createClass({
       <GridColumn className="col-xs-12 col-sm-6 col-md-5 col-lg-4">
         <PageHeader size="h4" label="Log In" />
         <InfoAlert>
-          To access the demo, you can use the email address <strong>admin@admin.com</strong> and the password <strong>password</strong>.
+          To access the project, you can request an <strong>invite</strong>. Click <a href="/invite">here</a>.
         </InfoAlert>
         <Form ref="loginForm" id="login" className="login" validations={ this.validations() } onSubmit={ this.handleSubmit }>
           <FormGroup>

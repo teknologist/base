@@ -6,8 +6,8 @@ FlowRouter.notFound = {
 };
 
 Accounts.onLogin( () => {
-  let currentRoute = FlowRouter.current();
-  if ( currentRoute && currentRoute.route.group.name === 'public' ) {
-    FlowRouter.go( 'index' );
-  }
+  let currentRoute = FlowRouter.current(),
+      path         = currentRoute ? currentRoute.path : '/dashboard';
+
+  return path !== '/login' ? FlowRouter.go( path ) : FlowRouter.go( '/dashboard' );
 });

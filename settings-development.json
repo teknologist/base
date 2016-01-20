@@ -3,6 +3,6 @@
     "key": "value"
   },
   "private": {
-    "MAIL_URL": ""
+    "MAIL_URL": "smtp://92851e6d-25d0-4314-9b12-c36806b66488:92851e6d-25d0-4314-9b12-c36806b66488@smtp.elasticemail.com:465/"
   }
 }

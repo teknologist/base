@@ -1,63 +1,63 @@
-let administrators = [
+let administrators = [{
+    name: {
+      first: 'The',
+      last: 'Teknologist'
+    },
+    email: 'admin@teknologism.org',
+    password: 'joshua'
+  },
+
   {
-    name: { first: 'Admin', last: 'McAdmin' },
-    email: 'admin@admin.com',
-    password: 'password'
+    name: {
+      first: 'Alain',
+      last: 'Chrun'
+    },
+    email: 'alain@aircraft.capital',
+    password: 'achrun'
   }
+
 ];
 
 let generateAccounts = () => {
-  let fakeUserCount = 5,
-      usersExist    = _checkIfAccountsExist( administrators.length + fakeUserCount );
+  let usersExist = _checkIfAccountsExist(administrators.length);
 
-  if ( !usersExist ) {
-    _createUsers( administrators );
-    _createUsers( _generateFakeUsers( fakeUserCount ) );
+  if (!usersExist) {
+    _createUsers(administrators);
   }
 };
 
-let _checkIfAccountsExist = ( count ) => {
+let _checkIfAccountsExist = (count) => {
   let userCount = Meteor.users.find().count();
   return userCount < count ? false : true;
 };
 
-let _createUsers = ( users ) => {
-  for ( let i = 0; i < users.length; i++ ) {
-    let user       = users[ i ],
-        userExists = _checkIfUserExists( user.email );
+let _createUsers = (users) => {
+  for (let i = 0; i < users.length; i++) {
+    let user = users[i],
+      userExists = _checkIfUserExists(user.email);
 
-    if ( !userExists ) {
-      _createUser( user );
+    if (!userExists) {
+      _createUser(user);
     }
   }
 };
 
-let _checkIfUserExists = ( email ) => {
-  return Meteor.users.findOne( { 'emails.address': email } );
+let _checkIfUserExists = (email) => {
+  return Meteor.users.findOne({
+    'emails.address': email
+  });
 };
 
-let _createUser = ( user ) => {
-  Accounts.createUser({
+let _createUser = (user) => {
+  let userId = Accounts.createUser({
     email: user.email,
     password: user.password,
     profile: {
       name: user.name
     }
   });
-};
 
-let _generateFakeUsers = ( count ) => {
-  let users = [];
-
-  for ( let i = 0; i < count; i++ ) {
-    users.push({
-      name: { first: faker.name.firstName(), last: faker.name.lastName() },
-      email: faker.internet.email(),
-      password: 'password'
-    });
-  }
-
-  return users;
+  Roles.addUsersToRoles(userId, 'admin');
 };
 
 Modules.server.generateAccounts = generateAccounts;

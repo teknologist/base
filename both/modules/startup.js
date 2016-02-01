@@ -1,3 +1,5 @@
-let startup = () => {};
+let startup = () => {
+  SimpleSchema.debug = true;
+};
 
 Modules.both.startup = startup;

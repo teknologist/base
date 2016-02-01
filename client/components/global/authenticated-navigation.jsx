@@ -2,7 +2,12 @@ injectTapEventPlugin();
 
 var {
     AppCanvas,
-    AppBar,
+    Toolbar,
+    ToolbarGroup,
+    ToolbarTitle,
+    NotificationsIcon,
+    ToolbarSeparator,
+    Badge,
     LeftNav,
     Styles,
     RaisedButton,
@@ -10,14 +15,18 @@ var {
     IconButton,
     IconMenu,
     MenuItem,
-    ActionFace
+    ActionFace,
+    Colors
     } = MUI;
 
 var { ThemeManager, LightRawTheme } = Styles;
 
+
+
 let {SvgIcons} = MUI.Libs;
 AuthenticatedNavigation = React.createClass({
   mixins: [ ReactMeteorData ],
+
   getMeteorData() {
     let user = Meteor.user();
 
@@ -38,33 +47,53 @@ AuthenticatedNavigation = React.createClass({
     return items;
   },
   navigateToTarget(event,item) {
-  console.log(item);
+  //console.log(item);
    FlowRouter.go(item.props.value);
   },
   logout( event ) {
     event.preventDefault();
     return Meteor.logout( () => FlowRouter.go( '/login' ) );
   },
+  testNotification( event ) {
+        Meteor.call("testNotification", "eric@teknologism.org", "Test","Ceci est un Test", function (error, result) {
+          if (error) {
+             alert(error);
+          } else {
+        console.log(result);
+          }
+        });
+  },
 render: function () {
-  return (<AppBar
-    title='Project Asteroid ❤ Meteor ❤ React ❤ Material UI'
+  return (<Toolbar style={{ height: '80px' }}>
+  <ToolbarGroup firstChild={false} float="left">
+           <ToolbarTitle text="Project Asteroid ❤ Meteor ❤ React ❤ Material UI" style={{ color:'White' }} />
 
-    iconElementRight={
-  <IconMenu
-    onItemTouchTap={ this.navigateToTarget }
-    iconButtonElement={
-      <IconButton><SvgIcons.ActionFace /></IconButton>
-    }
-    targetOrigin={{horizontal: 'right', vertical: 'top'}}
-    anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-  >
-      { this.items().map( ( item, index ) => {
-        return  <MenuItem primaryText={ item.label } key={ `authenticated-nav-item_${ index }` } value={ item.path } />;
-      })}
-      <MenuItem primaryText='Logout'  onClick={ this.logout }/>
-    </IconMenu>
-}
-></AppBar>
+               </ToolbarGroup>
+               <ToolbarGroup float="right">
+      <ToolbarSeparator  style={{ margin: '0 15px 0 0' , color:'White'}}/>
+
+
+
+<NotificationsWidget />
+    <IconMenu
+      onItemTouchTap={ this.navigateToTarget }
+      iconButtonElement={
+        <IconButton><SvgIcons.ActionFace  color={ Styles.Colors.white }/></IconButton>
+      }
+      targetOrigin={{horizontal: 'right', vertical: 'top'}}
+      anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+    >
+        <MenuItem primaryText='Test Notifications'  onClick={ this.testNotification }/>
+
+
+        { this.items().map( ( item, index ) => {
+          return  <MenuItem primaryText={ item.label } key={ `authenticated-nav-item_${ index }` } value={ item.path } />;
+        })}
+        <MenuItem primaryText='Logout'  onClick={ this.logout }/>
+      </IconMenu>
+  </ToolbarGroup>
+
+</Toolbar>
 );
 }
 

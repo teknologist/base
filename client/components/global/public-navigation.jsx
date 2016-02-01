@@ -2,7 +2,10 @@ injectTapEventPlugin();
 
 var {
     AppCanvas,
-    AppBar,
+    Toolbar,
+    ToolbarGroup,
+    ToolbarTitle,
+    ToolbarSeparator,
     LeftNav,
     Styles,
     RaisedButton,
@@ -28,25 +31,27 @@ PublicNavigation = React.createClass({
   render: function () {
 
 
-    return (<AppBar
-      title='Project Asteroid ❤ Meteor ❤ React ❤ Material UI'
+    return (<Toolbar>
+    <ToolbarGroup firstChild={true} float="left">
+             <ToolbarTitle text="Project Asteroid ❤ Meteor ❤ React ❤ Material UI" />
+    </ToolbarGroup>
+    <ToolbarGroup float="right">
+    
+      <IconMenu
+        onItemTouchTap={ this.navigateToTarget }
+        iconButtonElement={
+          <IconButton><SvgIcons.ActionFace /></IconButton>
+        }
+        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+      >
+          { this.items.map( ( item, index ) => {
+            return  <MenuItem primaryText={ item.label } key={ `public-nav-item_${ index }` } value={ item.path }/>;
+          })}
 
-      iconElementRight={
-    <IconMenu
-      onItemTouchTap={ this.navigateToTarget }
-      iconButtonElement={
-        <IconButton><SvgIcons.ActionFace /></IconButton>
-      }
-      targetOrigin={{horizontal: 'right', vertical: 'top'}}
-      anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-    >
-        { this.items.map( ( item, index ) => {
-          return  <MenuItem primaryText={ item.label } key={ `public-nav-item_${ index }` } value={ item.path }/>;
-        })}
-
-      </IconMenu>
-  }
-  ></AppBar>
+        </IconMenu>
+      </ToolbarGroup>
+    </Toolbar>
 );
 }
 });

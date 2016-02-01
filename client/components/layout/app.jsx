@@ -28,18 +28,18 @@ let {SvgIcons} = MUI.Libs;
 
 
 let appPalette =  {
-    primary1Color: '#455A64',
-    primary2Color: '#607D8B',
+    primary1Color: '#00BCD4',
+    primary2Color: '#FF4081',
     primary3Color: Styles.Colors.lightBlack,
-    accent1Color: '#FFC107',
-    accent2Color: '#FFC107',
-    accent3Color: '#FFC107',
+    accent1Color: '#FF4081',
+    accent2Color: '#00BCD4',
+    accent3Color: '#FF4081',
     textColor: '#212121',
     alternateTextColor: Styles.Colors.white,
     canvasColor: Styles.Colors.white,
     borderColor: Styles.Colors.grey300,
     disabledColor: Styles.Colors.grey500,
-    pickerHeaderColor: '#FFC107'
+    pickerHeaderColor: '#FF4081'
   };
 
   var Theme = ThemeManager.getMuiTheme(MUI.Styles.LightRawTheme);

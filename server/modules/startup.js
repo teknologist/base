@@ -8,7 +8,9 @@ let startup = () => {
 
 var _setEnvironmentVariables = () => Modules.server.setEnvironmentVariables();
 
-var _setBrowserPolicies = () => {};
+var _setBrowserPolicies = () => {
+  BrowserPolicy.content.allowImageOrigin("http://media.giphy.com");
+};
 
 var _generateAccounts = () => Modules.server.generateAccounts();
 

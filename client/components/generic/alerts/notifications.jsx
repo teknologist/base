@@ -71,9 +71,10 @@ if(newIds.length >0) {
 
 
   },
-  shouldComponentUpdate(nextProps, nextState) {
-      console.log(nextProps+" "+nextState);
-  },
+  // shouldComponentUpdate(nextProps, nextState) {
+  //     console.log(JSON.stringify(nextProps)+" State:"+JSON.stringify(nextState));
+  //     return true;
+  // },
   handleRequestClose() {
 
  },
@@ -123,13 +124,16 @@ console.log("Marked "+result+" Notifications as READ.");
  : ''}
         {
           this.data.notifications.map( ( item, index ) => {
-            return  <div><ListItem primaryText={ item.title  } key={ item._id } value={ item._id }  secondaryText={ item.content } /><Divider /></div>;
+            console.log("itemId: "+item._id);
+            return  <div key={ `notification-div_${ item._id }` } ><ListItem primaryText={ item.title  } key={ `notification-item_${ item._id }` } value={ item._id }  secondaryText={ item.content } /><Divider key={ `notification-divider_${ item._id }` }/></div>;
           })
 
         }
 
-      </IconMenu>
-            :   <SvgIcons.SocialNotifications  color={ Styles.Colors.white } hoverColor={ Styles.Colors.pinkA200 } style={ iconStyles }/>}
+              </IconMenu>
+            :   <SvgIcons.SocialNotifications  color={ Styles.Colors.white } hoverColor={ Styles.Colors.pinkA200 } style={ iconStyles }/>
+
+        }
             </span>
 
     );

@@ -9,13 +9,11 @@ var {
     DatePicker,
     IconButton,
     IconMenu,
-    MenuItem,
-    ActionFace
+    MenuItem
     } = MUI;
 
 var { ThemeManager, LightRawTheme } = Styles;
 
-let {SvgIcons} = MUI.Libs;
 
 // .dark-primary-color    { background: #455A64; }
 // .default-primary-color { background: #607D8B; }

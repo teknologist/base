@@ -1,5 +1,3 @@
-injectTapEventPlugin();
-
 var {
     AppCanvas,
     Toolbar,
@@ -21,9 +19,13 @@ var {
 
 var { ThemeManager, LightRawTheme } = Styles;
 
-
-
 let {SvgIcons} = MUI.Libs;
+
+const iconStyles = {
+  width: 66,
+  height: 66
+};
+
 AuthenticatedNavigation = React.createClass({
   mixins: [ ReactMeteorData ],
 
@@ -64,7 +66,7 @@ AuthenticatedNavigation = React.createClass({
         });
   },
 render: function () {
-  return (<Toolbar style={{ height: '80px' }}>
+  return (<Toolbar >
   <ToolbarGroup firstChild={false} float="left">
            <ToolbarTitle text="Project Asteroid ❤ Meteor ❤ React ❤ Material UI" style={{ color:'White' }} />
 
@@ -73,12 +75,14 @@ render: function () {
       <ToolbarSeparator  style={{ margin: '0 15px 0 0' , color:'White'}}/>
 
 
-
 <NotificationsWidget />
+
+
+
     <IconMenu
       onItemTouchTap={ this.navigateToTarget }
       iconButtonElement={
-        <IconButton><SvgIcons.ActionFace  color={ Styles.Colors.white }/></IconButton>
+        <IconButton style={iconStyles}><SvgIcons.ActionFace  color={ Styles.Colors.white } style={iconStyles}/></IconButton>
       }
       targetOrigin={{horizontal: 'right', vertical: 'top'}}
       anchorOrigin={{horizontal: 'right', vertical: 'top'}}

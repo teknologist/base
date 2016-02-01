@@ -1,7 +1,4 @@
-injectTapEventPlugin();
-Bert.defaults = {
-  hideDelay: 3500
-};
+
 var {
     Badge,
     IconMenu,
@@ -14,13 +11,17 @@ var {
     List,
     ListItem,
     Divider,
-    Snackbar
-    } = MUI;
+    Snackbar,
+  } = MUI;
 
 var { ThemeManager, LightRawTheme } = Styles;
 
 let {SvgIcons} = MUI.Libs;
 
+const iconStyles = {
+  height: 24,
+  width: 24
+};
 
 NotificationsWidget = React.createClass({
   mixins: [ ReactMeteorData ],
@@ -107,10 +108,10 @@ console.log("Marked "+result+" Notifications as READ.");
 
         <Badge
           badgeContent={ this.data.notifications.length }
-          badgeStyle={{top: 12, right: 12}}
+          badgeStyle={{ top: 12, right: 12 }}
           primary={true}
         >
-          <SvgIcons.SocialNotifications  color={ Styles.Colors.white } hoverColor={ Styles.Colors.pinkA200 }/>
+          <SvgIcons.SocialNotifications  color={ Styles.Colors.white } hoverColor={ Styles.Colors.pinkA200 } style={ iconStyles } />
         </Badge>
 
       }
@@ -128,7 +129,7 @@ console.log("Marked "+result+" Notifications as READ.");
         }
 
       </IconMenu>
-            :   <SvgIcons.SocialNotifications  color={ Styles.Colors.white } hoverColor={ Styles.Colors.pinkA200 }/>}
+            :   <SvgIcons.SocialNotifications  color={ Styles.Colors.white } hoverColor={ Styles.Colors.pinkA200 } style={ iconStyles }/>}
             </span>
 
     );

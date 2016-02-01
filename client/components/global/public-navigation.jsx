@@ -1,4 +1,3 @@
-injectTapEventPlugin();
 
 var {
     AppCanvas,
@@ -36,7 +35,7 @@ PublicNavigation = React.createClass({
              <ToolbarTitle text="Project Asteroid ❤ Meteor ❤ React ❤ Material UI" />
     </ToolbarGroup>
     <ToolbarGroup float="right">
-    
+
       <IconMenu
         onItemTouchTap={ this.navigateToTarget }
         iconButtonElement={

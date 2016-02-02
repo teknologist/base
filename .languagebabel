@@ -1,0 +1,7 @@
+{
+"transpileOnSave": false,
+"createTranspiledCode": false,
+"createMap": false,
+"projectRoot": true,
+"createTargetDirectories": false
+}

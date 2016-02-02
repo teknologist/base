@@ -11,15 +11,13 @@ audit-argument-checks
 themeteorchef:jquery-validation
 twbs:bootstrap
 browser-policy
-meteorhacks:npm
+
 
 
 themeteorchef:bert
 meteorhacks:ssr
 standard-minifiers
 
-
-npm-container
 ecmascript
 digilord:faker
 kadira:flow-router
@@ -43,3 +41,20 @@ alanning:roles
 email
 thereactivestack:blazetoreact
 izzilab:material-ui
+meteorhacks:npm
+
+
+npm-container
+react-template-helper
+aldeed:autoform
+materialize:materialize
+gildaspk:autoform-materialize
+poetic:materialize-scss
+fortawesome:fontawesome
+matb33:collection-hooks
+benan789:autoform-materialize-tagsinput
+cosmos:browserify
+aldeed:geocoder
+meteortoys:allthings
+ejson
+teknologist:autoform-googleplace

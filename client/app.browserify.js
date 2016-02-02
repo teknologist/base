@@ -1,0 +1,1 @@
+Geosuggest = require('react-geosuggest');

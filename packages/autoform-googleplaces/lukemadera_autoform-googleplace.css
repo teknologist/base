@@ -1,0 +1,36 @@
+.lm-autoform-google-place-input {
+  width: 100%;
+}
+
+.lm-autoform-google-place-input-cont {
+  position: relative;
+}
+.lm-autoform-google-place-predictions {
+  position: absolute;
+  z-index: 99999;
+  width: 100%;
+  background-color: white;
+  color: rgb(75,75,75);
+  border-bottom: solid 1px rgb(200,200,200);
+  border-left: solid 1px rgb(200,200,200);
+  border-right: solid 1px rgb(200,200,200);
+  display: none;
+  box-sizing: border-box;
+}
+.lm-autoform-google-place-predictions.visible {
+  display: block;
+}
+
+.lm-autoform-google-place-prediction-item {
+  cursor: pointer;
+  padding: 0 5px;
+}
+.lm-autoform-google-place-prediction-item.selected {
+  background-color: rgb(200,200,200);
+}
+.lm-autoform-google-place-attribution{
+  min-width:144px;
+  height:18px;
+  background:url('/packages/lukemadera_autoform-googleplace/powered_by_google_on_white.png') no-repeat top right;
+  margin-top:4px;
+}

@@ -43,7 +43,10 @@ AuthenticatedNavigation = React.createClass({
     ];
 
     if ( Roles.userIsInRole( this.data.currentUserId, 'admin' ) ) {
+      items.push( { name: 'users', path: '/users', label: 'Users Admin' } );
       items.push( { name: 'invites', path: '/invites', label: 'Invites' } );
+          items.push( { name: 'outlets', path: '/outlets', label: 'Outlets' } );
+      items.push( { name: 'tags', path: '/tags', label: 'Tags' } );
     }
 
     return items;

@@ -1,13 +1,3 @@
-UI.registerHelper("prettifyDate", function(timestamp) {
-  return moment(new Date(timestamp)).fromNow();
-});
-
-UI.registerHelper('userName', function(userId) {
-  if (context)
-    return getUsername(userId);
-});
-
-
 utils = {
 
   getUsername: function(userId) {

@@ -1,1 +1,0 @@
-Geosuggest = require('react-geosuggest');

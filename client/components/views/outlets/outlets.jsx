@@ -20,6 +20,47 @@
 
     };
   },
+  selectSuggestion(suggest) {
+    let placeId = suggest.placeId;
+    var url ="https://maps.googleapis.com/maps/api/place/details/json?placeid=" +
+          placeId +
+          "&key=AIzaSyAyrlcT7R-GaqwseJaSwTZCPVAcrNCuOac";
+
+        console.log("GooglePlaces Details API request:" + url);
+        //asynchronous GET
+        HTTP.get(url, function(error, result){
+          if(error){
+            console.log("error", error);
+              throw new Meteor.Error(error);
+          }
+          if(result){
+            if (result.statusCode == 200) {
+              var respJson = JSON.parse(result.content);
+
+              if (respJson.result) {
+                var firstResult = respJson.result;
+                console.log('##### > ' + JSON.stringify(respJson));
+
+
+              } else {
+                console.log("### No results for " + doc.name);
+              }
+
+            } else {
+              console.log("Response issue: ", result.statusCode);
+              var errorJson = JSON.parse(result.content);
+              throw new Meteor.Error(result.statusCode, errorJson.error);
+            }
+          }
+        });
+
+
+
+
+
+
+
+  },
   render() {
     return <div className="outlets">
       <PageHeader label="Outlets" />
@@ -32,7 +73,7 @@
         : <Loading />}
 
             <PageHeader label="Add a new Outlet" />
-
+            <Geosuggest placeholder="Type Here..." onSuggestSelect={this.selectSuggestion}/>
         <QuickFormWrapper collection="Outlets" id="insertOutletForm" type="method" meteormethod="submitOutlet" fields="name,description,address,telephone,tags"/>
     </div>
 

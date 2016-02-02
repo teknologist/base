@@ -14,6 +14,7 @@ var _setBrowserPolicies = () => {
   BrowserPolicy.content.allowOriginForAll('*.googleapis.com');
   BrowserPolicy.content.allowOriginForAll('*.gstatic.com');
   BrowserPolicy.content.allowEval('https://ajax.googleapis.com');
+  BrowserPolicy.content.allowConnectOrigin('https://maps.googleapis.com');
   BrowserPolicy.content.allowFontDataUrl();
 };
 

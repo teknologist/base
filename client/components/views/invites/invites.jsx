@@ -37,15 +37,15 @@ InvitesList = React.createClass({
       <NavTabs context="invite-tabs" tabs={ this.tabs } />
       <TabContent context="invite-tabs" tabs={ this.tabs }>
         <TabPanel active={ true } id="open-invitations">
-          <Table context="open-invitations" columns={ this.data.openInvitations.columns }>
-            { this.data.openInvitations.data.map( ( invite ) => {
+          <Table context="open-invitations" columns={ this.getMeteorData().openInvitations.columns }>
+            { this.getMeteorData().openInvitations.data.map( ( invite ) => {
               return <OpenInvitation key={ invite._id } invite={ invite } />;
             })}
           </Table>
         </TabPanel>
         <TabPanel active={ false } id="closed-invitations">
-          <Table context="closed-invitations" columns={ this.data.closedInvitations.columns }>
-            { this.data.closedInvitations.data.map( ( invite ) => {
+          <Table context="closed-invitations" columns={ this.getMeteorData().closedInvitations.columns }>
+            { this.getMeteorData().closedInvitations.data.map( ( invite ) => {
               return <ClosedInvitation key={ invite._id } invite={ invite } />;
             })}
           </Table>

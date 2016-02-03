@@ -1,5 +1,5 @@
 import {mount} from 'react-mounter';
-
+import React from 'react';
 const authenticatedRoutes = FlowRouter.group({
   name: 'authenticated'
 });

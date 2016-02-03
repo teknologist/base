@@ -1,3 +1,4 @@
+import React from 'react';
 Table = React.createClass({
   render() {
     return <div className="table-responsive">

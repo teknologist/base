@@ -1,3 +1,4 @@
+import React from 'react';
 QuickFormWrapper = React.createClass({
   componentDidMount() {
     this.view = Blaze.renderWithData(Template.quickForm, this.props, ReactDOM.findDOMNode(this.refs.container));

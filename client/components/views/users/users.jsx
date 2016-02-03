@@ -19,9 +19,9 @@ UsersList = React.createClass({
   render() {
     return <div className="users">
       <PageHeader label="Users" />
-      { this.data.users ?
-        <Table context="users" columns={ this.data.columns }>
-          { this.data.users.map( ( user ) => {
+      { this.getMeteorData().users ?
+        <Table context="users" columns={ this.getMeteorData().columns }>
+          { this.getMeteorData().users.map( ( user ) => {
             return <UserRow key={ user._id } user={ user } />;
           })}
         </Table>

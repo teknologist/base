@@ -1,5 +1,9 @@
 import React from 'react';
-import {RaisedButton, TextField, FlatButton}  from'material-ui/lib';
+
+import TextField from 'material-ui/lib/text-field';
+
+import FlatButton from 'material-ui/lib/flat-button';
+
 
 OutletsList = React.createClass({
   mixins: [ TrackerReact ],
@@ -179,7 +183,7 @@ OutletsList = React.createClass({
         fullAddress: place.formatted_address,
         telephone: place.international_phone_number,
         active: true,
-        creatorID: this.data.currentUser._id,
+        creatorID: this.getMeteorData().currentUser._id,
         tags: this.state.newOutlet.tags,
         createdAt: new Date(),
         serviceSchedule: serviceSchedule,
@@ -285,9 +289,9 @@ OutletsList = React.createClass({
   render() {
     return <div className="outlets">
       <PageHeader label="Outlets"/>
-      {this.data.outlets
-        ? <Table context="outlets" columns={this.data.columns}>
-            {this.data.outlets.map((outlet) => {
+      {this.getMeteorData().outlets
+        ? <Table context="outlets" columns={this.getMeteorData().columns}>
+            {this.getMeteorData().outlets.map((outlet) => {
               return <OutletRow key={outlet._id} parentRow={this} outlet={outlet} />;
             })}
           </Table>
@@ -320,7 +324,7 @@ OutletsList = React.createClass({
 
                 <ReactTags tags={this.state.newOutlet.tags}
                   labelField={'name'}
-                     suggestions={this.data.suggestions}
+                     suggestions={this.getMeteorData().suggestions}
                      handleDelete={this.handleDelete}
                      handleAddition={this.handleAddition}
                      handleDrag={this.handleDrag} />

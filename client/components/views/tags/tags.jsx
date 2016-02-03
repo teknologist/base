@@ -20,9 +20,9 @@ TagsList = React.createClass({
   render() {
     return <div className="tags">
       <PageHeader label="Tags" />
-      { this.data.tags ?
-        <Table context="tags" columns={ this.data.columns }>
-          { this.data.tags.map( ( tag ) => {
+      { this.getMeteorData().tags ?
+        <Table context="tags" columns={ this.getMeteorData().columns }>
+          { this.getMeteorData().tags.map( ( tag ) => {
             return <TagRow key={ tag._id } tag={ tag } />;
           })}
         </Table>

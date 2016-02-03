@@ -1,5 +1,5 @@
 import React from 'react';
-var {RaisedButton, FlatButton} = MUI;
+import {RaisedButton, FlatButton} from 'material-ui/lib';;
 Login = React.createClass({
   validations() {
     let component = this;

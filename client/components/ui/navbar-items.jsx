@@ -1,3 +1,4 @@
+import React from 'react';
 NavbarItems = React.createClass({
   render() {
     let position = this.props.position ? this.props.position : '',

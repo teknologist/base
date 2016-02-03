@@ -308,7 +308,7 @@ Template.afGooglePlace.rendered =function() {
     stopTimeoutOnKeyup: false
   };
   var xx;
-  templateInst.opts =EJSON.clone(this.data.atts.opts);
+  templateInst.opts =EJSON.clone(this.getMeteorData().atts.opts);
   if(templateInst.opts ===undefined) {
     templateInst.opts =EJSON.clone(optsDefault);
   }

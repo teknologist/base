@@ -1,3 +1,4 @@
+import React from 'react';
 Input = React.createClass({
   render() {
     return <input

@@ -1,8 +1,8 @@
 import React from 'react';
-//import injectTapEventPlugin from 'react-tap-event-plugin';
-//injectTapEventPlugin();
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
-var {
+import {
     AppCanvas,
     AppBar,
     LeftNav,
@@ -12,10 +12,10 @@ var {
     IconButton,
     IconMenu,
     MenuItem
-    } = MUI;
+    } from 'material-ui/lib';;
 
 var { ThemeManager, LightRawTheme , Colors } = Styles;
-var { ColorManipulator } = MUI.Utils;
+import { ColorManipulator } from 'material-ui/lib/utils';
 
 
 // .dark-primary-color    { background: #455A64; }
@@ -63,7 +63,7 @@ let appPalette =  {
     shadowColor: Colors.fullBlack,
   };
 
-  var Theme = ThemeManager.getMuiTheme(MUI.Styles.LightRawTheme);
+  var Theme = ThemeManager.getMuiTheme(Styles.LightRawTheme);
   var newTheme = ThemeManager.modifyRawThemePalette(Theme,appPalette);
 
 App = React.createClass({
@@ -108,10 +108,10 @@ App = React.createClass({
     return <div className="loading"></div>;
   },
   getView() {
-    if ( this.data.canView() ) {
+    if ( this.getMeteorData().canView() ) {
       return this.props.yield;
     } else {
-      return this.data.hasUser ? <Dashboard /> : <Login />;
+      return this.getMeteorData().hasUser ? <Dashboard /> : <Login />;
     }
   },
   render() {
@@ -119,10 +119,10 @@ App = React.createClass({
 
   return (
     <AppCanvas>
-      <AppHeader hasUser={ this.data.hasUser } />
+      <AppHeader hasUser={ this.getMeteorData().hasUser } />
 
         <div className="container">
-            { this.data.loggingIn ? this.loading() : this.getView() }
+            { this.getMeteorData().loggingIn ? this.loading() : this.getView() }
         </div>
     </AppCanvas>
   );
@@ -130,9 +130,9 @@ App = React.createClass({
 
     //
     // return <div className="app-root">
-    //   <AppHeader hasUser={ this.data.hasUser } />
+    //   <AppHeader hasUser={ this.getMeteorData().hasUser } />
     //   <div className="container">
-    //     { this.data.loggingIn ? this.loading() : this.getView() }
+    //     { this.getMeteorData().loggingIn ? this.loading() : this.getView() }
     //   </div>
     // </div>;
 //  }

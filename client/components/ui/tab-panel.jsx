@@ -1,3 +1,4 @@
+import React from 'react';
 TabPanel = React.createClass({
   render() {
     let classes = this.props.active ? 'tab-pane active' : 'tab-pane';

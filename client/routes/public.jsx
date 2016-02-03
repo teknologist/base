@@ -1,4 +1,5 @@
-
+import {mount} from 'react-mounter';
+import React from 'react';
 
 const publicRoutes = FlowRouter.group({
   name: 'public'

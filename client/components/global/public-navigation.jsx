@@ -24,11 +24,9 @@ PublicNavigation = React.createClass({
     { name: 'invite', path: '/invite', label: 'Request Invite' }
   ],
  navigateToTarget(event,item) {
-   console.log(item);
    FlowRouter.go(item.props.value);
  },
   render: function () {
-
 
     return (<Toolbar>
     <ToolbarGroup firstChild={true} float="left">

@@ -1,29 +1,25 @@
 var {RaisedButton, TextField} = MUI;
 
-const placeInfosReactive = new ReactiveVar();
+const emptyOutlet = {
+  newOutlet: {
+    description: 'Describe the Outlet',
+    address: {},
+    fullAddress: '',
+    telephone: '',
+    tags: [],
+    serviceSchedule: ''
+  }
+};
+
 OutletsList = React.createClass({
   mixins: [ReactMeteorData],
   getInitialState() {
-    return {
-      newOutlet: {
-        name: '',
-        description: 'Describe the Outlet',
-        address: {},
-        fullAddress: '',
-        telephone: '',
-        tags: [],
-        serviceSchedule: ''
-      }
-    };
+    return emptyOutlet;
   },
   getMeteorData() {
-    let handle = Meteor.subscribe('outlets');
+    let outletsHandle = Meteor.subscribe('outlets');
     let suggestionsHandle = Meteor.subscribe('tags');
-    let place = placeInfosReactive.get();
-    let placeInfos = {};
-    if (place) {
-      placeInfos = place;
-    }
+
     return {
       currentUser: Meteor.user(),
       columns: [
@@ -63,7 +59,6 @@ OutletsList = React.createClass({
           createAt: -1
         }
       }).fetch(),
-      placeInfos: placeInfos,
       suggestions: Tags.find({}).fetch().map(function(tag) {
         return tag.name;
       })
@@ -161,17 +156,17 @@ OutletsList = React.createClass({
 
     function callback(place, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
-        placeInfosReactive.set(this.createNewOutletObject(place));
+        this.createNewOutletObject(place);
       }
     }
 
   },
   createNewOutletObject(place) {
     let addressComponent = this.createAddressComponent(place);
-    let openingHours = (place.opening_hours
+    let serviceSchedule = (place.opening_hours
       ? place.opening_hours.weekday_text
-      : 'Unknown');
-    return {
+      : ['Unknown']);
+    let newOutlet = {
       newOutlet: {
         name: place.name,
         description: 'Describe the Outlet',
@@ -182,13 +177,14 @@ OutletsList = React.createClass({
         creatorID: this.data.currentUser._id,
         tags: this.state.newOutlet.tags,
         createdAt: new Date(),
-        serviceSchedule: openingHours,
+        serviceSchedule: serviceSchedule,
         opening_hours: place.opening_hours
       }
     };
+    this.setState(newOutlet);
   },
   submitOutlet() {
-    let newOutlet = this.data.placeInfos.newOutlet;
+    let newOutlet = this.state.newOutlet;
 
     let outletValidator = OutletsSchema.namedContext("newOutlet");
     if (outletValidator.validate(newOutlet)) {
@@ -206,12 +202,15 @@ OutletsList = React.createClass({
     }
 
   },
-  handleTelephoneChange(event) {
+  handleFieldChange(event) {
     console.log(event.target.value);
-    this.data.placeInfos.newOutlet.telephone = event.target.value;
+    let newState = this.state.newOutlet;
+
+    newState[event.target.id] = event.target.value;
+    this.setState(newState);
   },
   resetForms() {
-    placeInfosReactive.set({});
+    this.setState(emptyOutlet);
     this.refs.geosuggest.clear();
   },
   handleDelete() {
@@ -238,14 +237,14 @@ OutletsList = React.createClass({
       <PageHeader label="Add a new Outlet"/>
 
       <Geosuggest placeholder="Type Here..." onSuggestSelect={this.selectSuggestion} ref="geosuggest"/>
-      {this.data.placeInfos.newOutlet
+      {this.state.newOutlet.name
         ? <div>
             <form>
-              <TextField fullWidth={true} hintText="Name" floatingLabelText="Name" value={this.data.placeInfos.newOutlet.name}/><br/>
-              <TextField fullWidth={true} hintText="Description" floatingLabelText="Description" value={this.data.placeInfos.newOutlet.description}/><br/>
-              <TextField fullWidth={true} hintText="Address" floatingLabelText="Address" value={this.data.placeInfos.newOutlet.fullAddress}/><br/>
-              <TextField fullWidth={true} hintText="Telephone" floatingLabelText="Telephone" value={this.data.placeInfos.newOutlet.telephone} onChange={this.handleTelephoneChange}/><br/>
-                <TextField fullWidth={true} hintText="Service Schedules" floatingLabelText="Service Schedules" value={this.data.placeInfos.newOutlet.serviceSchedule} onChange={this.handleTelephoneChange}/><br/>
+              <TextField fullWidth={true} hintText="Name" floatingLabelText="Name" value={this.state.newOutlet.name} id="name" onChange={this.handleFieldChange}/><br/>
+              <TextField fullWidth={true} hintText="Description" floatingLabelText="Description" value={this.state.newOutlet.description} id="description" onChange={this.handleFieldChange}/><br/>
+              <TextField fullWidth={true} hintText="Address" floatingLabelText="Address" value={this.state.newOutlet.fullAddress} id="fullAddress" onChange={this.handleFieldChange}/><br/>
+              <TextField fullWidth={true} hintText="Telephone" floatingLabelText="Telephone" value={this.state.newOutlet.telephone} id="telephone" onChange={this.handleFieldChange}/><br/>
+                <TextField fullWidth={true} hintText="Service Schedules" floatingLabelText="Service Schedules" value={this.state.newOutlet.serviceSchedule} id="serviceSchedule" onChange={this.handleFieldChange}/><br/>
 
 
                 <ReactTags tags={this.state.newOutlet.tags}

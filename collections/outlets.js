@@ -51,7 +51,8 @@ AddressSchema = new SimpleSchema({
   },
   city: {
     type: String,
-    max: 50
+    max: 50,
+    optional: true
   },
   state: {
     type: String,
@@ -59,7 +60,8 @@ AddressSchema = new SimpleSchema({
   },
   zip: {
     type: String,
-    regEx: /^[0-9]{5}$/
+    regEx: /^[0-9]{5}$/,
+    optional: true
   },
   country: {
     type: String
@@ -131,7 +133,8 @@ OutletsSchema = new SimpleSchema({
 
   telephone: {
     type: String,
-    label: "Telephone"
+    label: "Telephone",
+    optional: true
   },
 
   url: {
@@ -142,7 +145,7 @@ OutletsSchema = new SimpleSchema({
   },
   address: {
     type: AddressSchema,
-    optional: true,
+    optional: false,
     label: '',
     autoform: {
       type: 'googleplace',

@@ -1,5 +1,6 @@
-# The Meteor Chef - Base
-A starting point for Meteor apps.
+# Asteroids
+A Meteor apps deployed at 
+http://rabznijj61cucxo.meteor.com
 
 <table>
   <tbody>

@@ -16,3 +16,18 @@ Meteor.publish('usersAdmin', function() {
 
 
 });
+
+Meteor.publish('users-infos', function() {
+  if (Roles.userIsInRole(this.userId, 'admin')) {
+    return Meteor.users.find({},
+      {
+      fields: {
+        'profile': 1,
+        'roles': 1,
+        'createdAt': 1
+      }
+    });
+  }
+
+
+});

@@ -20,6 +20,7 @@ OutletsList = React.createClass({
   getMeteorData() {
     let outletsHandle = Meteor.subscribe('outlets');
     let suggestionsHandle = Meteor.subscribe('tags');
+    let usersHandle = Meteor.subscribe('users-infos');
 
     return {
       currentUser: Meteor.user(),

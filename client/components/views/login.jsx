@@ -1,3 +1,4 @@
+var {RaisedButton, FlatButton} = MUI;
 Login = React.createClass({
   validations() {
     let component = this;
@@ -61,7 +62,7 @@ Login = React.createClass({
             <PasswordInput ref="password" showLabel={ true } labelLink={ passwordLabelLink } />
           </FormGroup>
           <FormGroup>
-            <SuccessButton type="submit" label="Login" />
+            <RaisedButton primary={true}  type="submit" label="Login" />
           </FormGroup>
         </Form>
         <p>Don't have an account? <a href="/signup">Sign Up</a>.</p>

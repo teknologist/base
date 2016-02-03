@@ -8,7 +8,8 @@ const emptyOutlet = {
     telephone: '',
     tags: [],
     serviceSchedule: ''
-  }
+  },
+  addressEdit: false
 };
 
 OutletsList = React.createClass({
@@ -198,7 +199,13 @@ OutletsList = React.createClass({
       });
       this.resetForms();
     } else {
-      Bert.alert({title: 'Invalid Outlet', message: 'Check The information', type: 'danger', style: 'growl-bottom-right', icon: 'fa-bell-o'});
+      let invalidKeys = outletValidator._invalidKeys;
+      let message= 'Check ';
+      message = message + invalidKeys.map(function(invalidKey) {
+          return invalidKey.name;
+      });
+
+      Bert.alert({title: 'Invalid Outlet', message: message, type: 'danger', style: 'growl-bottom-right', icon: 'fa-bell-o'});
     }
 
   },

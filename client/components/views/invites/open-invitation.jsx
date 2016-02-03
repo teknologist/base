@@ -1,3 +1,4 @@
+import React from 'react';
 OpenInvitation = React.createClass({
   sendInvitation() {
     if ( confirm( `Are you sure you want to invite ${ this.props.invite.email }?` ) ) {

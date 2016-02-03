@@ -1,4 +1,4 @@
-Invites = new Meteor.Collection('invites');
+Invites = new Mongo.Collection('invites');
 
 Invites.allow({
   insert: () => false,
@@ -12,7 +12,7 @@ Invites.deny({
   remove: () => true
 });
 
-InvitesSchema = Schemas.InvitesSchema = new SimpleSchema({
+InvitesSchema = new SimpleSchema({
   "email": {
     type: String,
     label: "Email address of the person requesting the invite."

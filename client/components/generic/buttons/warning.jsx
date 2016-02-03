@@ -1,3 +1,4 @@
+import React from 'react';
 WarningButton = React.createClass({
   render() {
     return <Button

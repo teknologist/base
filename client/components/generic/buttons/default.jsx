@@ -1,3 +1,4 @@
+import React from 'react';
 DefaultButton = React.createClass({
   render() {
     return <Button

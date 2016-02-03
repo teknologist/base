@@ -1,3 +1,4 @@
+import React from 'react';
 DropdownMenu = React.createClass({
   renderDivider() {
     return <li role="separator" className="divider"></li>;

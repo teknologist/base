@@ -1,3 +1,4 @@
+import React from 'react';
 InfoButton = React.createClass({
   render() {
     return <Button

@@ -1,4 +1,4 @@
-Outlets = new Meteor.Collection('outlets');
+Outlets = new Mongo.Collection('outlets');
 
 Outlets.allow({
   insert: () => false,
@@ -11,6 +11,7 @@ Outlets.deny({
   update: () => true,
   remove: () => true
 });
+
 GooglePhotosSchema = new SimpleSchema({
   height: {
     type: Number
@@ -22,7 +23,7 @@ GooglePhotosSchema = new SimpleSchema({
     type: String
   },
 });
-AddressSchema = Schemas.AddressSchema = new SimpleSchema({
+AddressSchema =  new SimpleSchema({
   placeName: {
     type: String
   },
@@ -68,7 +69,7 @@ AddressSchema = Schemas.AddressSchema = new SimpleSchema({
   }
 });
 
-OutletsSchema = Schemas.OutletsSchema = new SimpleSchema({
+OutletsSchema =  new SimpleSchema({
 
   name: {
     type: String,
@@ -138,7 +139,7 @@ OutletsSchema = Schemas.OutletsSchema = new SimpleSchema({
     regEx: SimpleSchema.RegEx.Url
   },
   address: {
-    type: Schemas.AddressSchema,
+    type: AddressSchema,
     optional: false,
     label: '',
     autoform: {
@@ -184,7 +185,7 @@ OutletsSchema = Schemas.OutletsSchema = new SimpleSchema({
 });
 
 
-Outlets.attachSchema(Schemas.OutletsSchema);
+Outlets.attachSchema(OutletsSchema);
 //
 //
 // if (Meteor.isServer) {

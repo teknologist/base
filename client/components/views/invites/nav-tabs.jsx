@@ -1,3 +1,4 @@
+import React from 'react';
 NavTabs = React.createClass({
   render() {
     return <ul className="nav nav-tabs" role="tablist">

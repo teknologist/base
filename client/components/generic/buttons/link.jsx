@@ -1,3 +1,4 @@
+import React from 'react';
 LinkButton = React.createClass({
   render() {
     return <Button

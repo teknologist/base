@@ -1,3 +1,4 @@
+import React from 'react';
 PrimaryButton = React.createClass({
   render() {
     return <Button

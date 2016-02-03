@@ -1,5 +1,6 @@
+import React from 'react';
 UsersList = React.createClass({
-  mixins: [ ReactMeteorData ],
+  mixins: [ TrackerReact ],
   getMeteorData() {
     let handle = Meteor.subscribe( 'usersAdmin' );
 

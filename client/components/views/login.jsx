@@ -1,3 +1,4 @@
+import React from 'react';
 var {RaisedButton, FlatButton} = MUI;
 Login = React.createClass({
   validations() {

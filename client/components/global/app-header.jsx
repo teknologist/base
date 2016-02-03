@@ -1,5 +1,6 @@
+import React from 'react';
 AppHeader = React.createClass({
-  mixins: [ ReactMeteorData ],
+  mixins: [ TrackerReact ],
   getMeteorData() {
     return {
       brandLink: !!Meteor.user() ? '/dashboard' : '/'

@@ -1,3 +1,4 @@
+import React from 'react';
 RepeatPasswordInput = React.createClass({
   render() {
     return <FormControl

@@ -1,3 +1,4 @@
+import React from 'react';
 ClosedInvitation = React.createClass({
   render() {
     let invite = this.props.invite;

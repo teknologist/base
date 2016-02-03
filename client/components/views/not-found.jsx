@@ -1,3 +1,4 @@
+import React from 'react';
 NotFound = React.createClass({
   render() {
     return <DangerAlert>

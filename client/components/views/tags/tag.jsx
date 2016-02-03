@@ -1,3 +1,4 @@
+import React from 'react';
 TagRow = React.createClass({
   render() {
     let tag = this.props.tag;

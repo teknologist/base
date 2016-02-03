@@ -1,3 +1,4 @@
+import React from 'react';
 SuccessButton = React.createClass({
   render() {
     return <Button

@@ -1,5 +1,5 @@
-
-var {
+import React from 'react';
+import {
     AppCanvas,
     Toolbar,
     ToolbarGroup,
@@ -13,10 +13,11 @@ var {
     IconMenu,
     MenuItem,
     ActionFace
-    } = MUI;
+  } from 'material-ui/lib';
     var { ThemeManager, LightRawTheme } = Styles;
 
-    let {SvgIcons} = MUI.Libs;
+    import {SvgIcons} from 'material-ui/lib/styles';
+
 PublicNavigation = React.createClass({
 
   items: [

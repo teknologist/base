@@ -1,3 +1,4 @@
+import React from 'react';
 UserRow = React.createClass({
   render() {
     let user = this.props.user;

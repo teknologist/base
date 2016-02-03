@@ -1,6 +1,5 @@
 /* global window */
-
-// import React from 'react';
+import React from 'react';
 // import GeosuggestItem from './GeosuggestItem'; // eslint-disable-line
 const inputAttributes =[
   'autocapitalize',

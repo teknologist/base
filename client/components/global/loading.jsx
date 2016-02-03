@@ -1,3 +1,4 @@
+import React from 'react';
 Loading = React.createClass({
   render() {
     return <svg version="1.1" className="loading" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 40 40" enable-background="new 0 0 40 40">

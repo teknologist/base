@@ -1,4 +1,5 @@
-var {RaisedButton, FlatButton} = MUI;
+import React from 'react';
+import {RaisedButton, FlatButton} from'material-ui/lib';
 
 OutletRow = React.createClass({
   toggleOutlet() {

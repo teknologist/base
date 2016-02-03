@@ -1,4 +1,6 @@
-injectTapEventPlugin();
+import React from 'react';
+//import injectTapEventPlugin from 'react-tap-event-plugin';
+//injectTapEventPlugin();
 
 var {
     AppCanvas,
@@ -65,7 +67,7 @@ let appPalette =  {
   var newTheme = ThemeManager.modifyRawThemePalette(Theme,appPalette);
 
 App = React.createClass({
-  mixins: [ ReactMeteorData ],
+  mixins: [ TrackerReact ],
   childContextTypes: {
         muiTheme: React.PropTypes.object
     },

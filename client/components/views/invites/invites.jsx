@@ -1,5 +1,6 @@
+import React from 'react';
 InvitesList = React.createClass({
-  mixins: [ ReactMeteorData ],
+  mixins: [ TrackerReact ],
   getMeteorData() {
     Meteor.subscribe( 'invites-list' );
 

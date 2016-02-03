@@ -1,3 +1,4 @@
+import React from 'react';
 PageHeader = React.createClass({
   renderPageHeader() {
     let headers = {

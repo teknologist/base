@@ -1,3 +1,4 @@
+import React from 'react';
 GeosuggestItem = React.createClass({
   /**
    * Get the default props

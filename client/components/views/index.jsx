@@ -1,5 +1,6 @@
+import React from 'react';
 Index = React.createClass({
-  mixins: [ ReactMeteorData ],
+  mixins: [ TrackerReact ],
   getMeteorData() {
     Meteor.subscribe( 'index' );
 
@@ -10,7 +11,7 @@ Index = React.createClass({
         <PageHeader label="Welcome to Project Asteroid." />
 
         <p>Project Asteroid is a super secret app that's launching soon! Type in your email below to get on the beta list.</p>
-        
+
       </div>;
     }
 });

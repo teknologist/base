@@ -1,3 +1,4 @@
+import React from 'react';
 RecoverPassword = React.createClass({
   validations() {
     let component = this;

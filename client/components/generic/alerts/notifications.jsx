@@ -1,5 +1,5 @@
-
-var {
+import React from 'react';
+import {
     Badge,
     IconMenu,
     MenuItem,
@@ -12,11 +12,12 @@ var {
     ListItem,
     Divider,
     Snackbar,
-  } = MUI;
+  } from 'material-ui';
 
 var { ThemeManager, LightRawTheme } = Styles;
 
-let {SvgIcons} = MUI.Libs;
+//let {SvgIcons} = MUI.Libs;
+import SvgIcons from 'material-ui/lib/styles';
 
 const iconStyles = {
   height: 24,
@@ -24,7 +25,7 @@ const iconStyles = {
 };
 
 NotificationsWidget = React.createClass({
-  mixins: [ ReactMeteorData ],
+  mixins: [ TrackerReact ],
 
   getMeteorData() {
 

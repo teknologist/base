@@ -1,3 +1,4 @@
+import React from 'react';
 FormControl = React.createClass({
   renderLabel() {
     if ( !this.props.labelLink ) {

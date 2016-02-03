@@ -1,3 +1,4 @@
+import React from 'react';
 Form = React.createClass({
   handleSubmit( event ) {
     event.preventDefault();

@@ -1,3 +1,4 @@
+import React from 'react';
 RequestInvite = React.createClass({
   componentDidMount() {
     let refs = this.refs,

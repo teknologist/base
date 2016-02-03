@@ -1,3 +1,4 @@
+import React from 'react';
 Dashboard = React.createClass({
   render() {
     return <div className="dashboard">

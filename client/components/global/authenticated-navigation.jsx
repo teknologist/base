@@ -1,4 +1,6 @@
-var {
+import React from 'react';
+
+import {
     AppCanvas,
     Toolbar,
     ToolbarGroup,
@@ -15,11 +17,11 @@ var {
     MenuItem,
     ActionFace,
     Colors
-    } = MUI;
-
+  } from 'material-ui/lib';
+import {SvgIcons} from 'material-ui/lib/styles';
 var { ThemeManager, LightRawTheme } = Styles;
 
-let {SvgIcons} = MUI.Libs;
+
 
 const iconStyles = {
   width: 66,
@@ -27,7 +29,7 @@ const iconStyles = {
 };
 
 AuthenticatedNavigation = React.createClass({
-  mixins: [ ReactMeteorData ],
+  mixins: [ TrackerReact ],
 
   getMeteorData() {
     let user = Meteor.user();

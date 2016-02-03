@@ -1,8 +1,8 @@
-var {RaisedButton, TextField, FlatButton} = MUI;
-
+import React from 'react';
+import {RaisedButton, TextField, FlatButton}  from'material-ui/lib';
 
 OutletsList = React.createClass({
-  mixins: [ReactMeteorData],
+  mixins: [ TrackerReact ],
   getInitialState() {
     return {
       newOutlet: {

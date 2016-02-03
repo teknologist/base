@@ -1,3 +1,4 @@
+import React from 'react';
 FormGroup = React.createClass({
   render() {
     return <div className="form-group">

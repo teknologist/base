@@ -10,9 +10,7 @@ Meteor.users.deny({
   remove: () => true
 });
 
-Schema = {};
-
-Schema.UserCountry = new SimpleSchema({
+UserCountry = new SimpleSchema({
   name: {
     type: String
   },
@@ -21,8 +19,7 @@ Schema.UserCountry = new SimpleSchema({
     regEx: /^[A-Z]{2}$/
   }
 });
-
-Schema.UserProfile = new SimpleSchema({
+UserProfile = new SimpleSchema({
   firstName: {
     type: String,
     optional: true
@@ -54,12 +51,12 @@ Schema.UserProfile = new SimpleSchema({
     optional: true
   },
   country: {
-    type: Schema.UserCountry,
+    type: UserCountry,
     optional: true
   }
 });
 
-Schema.User = new SimpleSchema({
+User = new SimpleSchema({
   username: {
     type: String,
     // For accounts-password, either emails or username is required, but not both. It is OK to make this
@@ -94,7 +91,7 @@ Schema.User = new SimpleSchema({
     type: Date
   },
   profile: {
-    type: Schema.UserProfile,
+    type: UserProfile,
     optional: true
   },
   // Make sure this services field is in your schema if you're using any of the accounts packages
@@ -119,10 +116,10 @@ Schema.User = new SimpleSchema({
   // Option 2: [String] type
   // If you are sure you will never need to use role groups, then
   // you can specify [String] as the type
-  roles: {
-    type: [String],
-    optional: true
-  },
+  // roles: {
+  //   type: [String],
+  //   optional: true
+  // },
   // In order to avoid an 'Exception in setInterval callback' from Meteor
   heartbeat: {
     type: Date,
@@ -130,4 +127,4 @@ Schema.User = new SimpleSchema({
   }
 });
 
-Meteor.users.attachSchema(Schema.User);
+Meteor.users.attachSchema(User);

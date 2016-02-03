@@ -1,3 +1,4 @@
+import React from 'react';
 NavBarNav = React.createClass({
   renderDropdown( item, index ) {
     let active = item.active ? 'dropdown active' : '';

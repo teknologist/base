@@ -1,3 +1,4 @@
+import React from 'react';
 Signup = React.createClass({
   componentDidMount() {
     let refs = this.refs,

@@ -1,3 +1,4 @@
+import React from 'react';
 EmailInput = React.createClass({
   render() {
     return <FormControl

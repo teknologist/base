@@ -1,4 +1,4 @@
-Tags = new Meteor.Collection('tags');
+Tags = new Mongo.Collection('tags');
 
 Tags.allow({
   insert: () => false,
@@ -12,7 +12,7 @@ Tags.deny({
   remove: () => true
 });
 
-TagsSchema = Schemas.TagsSchema = new SimpleSchema({
+TagsSchema =  new SimpleSchema({
 
   "name": {
     type: String,
@@ -66,4 +66,4 @@ TagsSchema = Schemas.TagsSchema = new SimpleSchema({
 });
 
 
-Tags.attachSchema(Schemas.TagsSchema);
+Tags.attachSchema(TagsSchema);

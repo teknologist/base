@@ -1,3 +1,4 @@
+import React from 'react';
 Alert = React.createClass({
   render() {
     return <p className={ `alert alert-${ this.props.style }` }>

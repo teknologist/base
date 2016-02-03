@@ -1,3 +1,4 @@
+import React from 'react';
 PasswordInput = React.createClass({
   render() {
     return <FormControl

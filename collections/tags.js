@@ -12,7 +12,7 @@ Tags.deny({
   remove: () => true
 });
 
-let TagsSchema = new SimpleSchema({
+TagsSchema = Schemas.TagsSchema = new SimpleSchema({
 
   "name": {
     type: String,
@@ -20,7 +20,8 @@ let TagsSchema = new SimpleSchema({
   },
   "description": {
     type: String,
-    label: "The Tag description"
+    label: "The Tag description",
+    optional: true
   },
   "createAt": {
     type: Date,
@@ -65,4 +66,4 @@ let TagsSchema = new SimpleSchema({
 });
 
 
-Tags.attachSchema(TagsSchema);
+Tags.attachSchema(Schemas.TagsSchema);

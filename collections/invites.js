@@ -12,7 +12,7 @@ Invites.deny({
   remove: () => true
 });
 
-let InvitesSchema = new SimpleSchema({
+InvitesSchema = Schemas.InvitesSchema = new SimpleSchema({
   "email": {
     type: String,
     label: "Email address of the person requesting the invite."

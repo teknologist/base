@@ -12,7 +12,8 @@ var {
     MenuItem
     } = MUI;
 
-var { ThemeManager, LightRawTheme } = Styles;
+var { ThemeManager, LightRawTheme , Colors } = Styles;
+var { ColorManipulator } = MUI.Utils;
 
 
 // .dark-primary-color    { background: #455A64; }
@@ -25,19 +26,39 @@ var { ThemeManager, LightRawTheme } = Styles;
 // .divider-color         { border-color: #B6B6B6; }
 
 
+// primary1Color: '#00BCD4',
+// primary2Color: '#FF4081',
+// primary3Color: Styles.Colors.lightBlack,
+// accent1Color: '#FF4081',
+// accent2Color: '#00BCD4',
+// accent3Color: '#FF4081',
+// textColor: '#212121',
+// alternateTextColor: Styles.Colors.white,
+// canvasColor: Styles.Colors.white,
+// borderColor: Styles.Colors.grey300,
+// disabledColor: Styles.Colors.grey500,
+// pickerHeaderColor: '#FF4081'
+
+
+
+
+
 let appPalette =  {
+
     primary1Color: '#00BCD4',
-    primary2Color: '#FF4081',
-    primary3Color: Styles.Colors.lightBlack,
+    primary2Color: '#00BCD4',
+    primary3Color: '#FF4081',
     accent1Color: '#FF4081',
     accent2Color: '#00BCD4',
     accent3Color: '#FF4081',
-    textColor: '#212121',
-    alternateTextColor: Styles.Colors.white,
-    canvasColor: Styles.Colors.white,
-    borderColor: Styles.Colors.grey300,
-    disabledColor: Styles.Colors.grey500,
-    pickerHeaderColor: '#FF4081'
+    textColor: Colors.darkBlack,
+    alternateTextColor: Colors.white,
+    canvasColor: Colors.white,
+    borderColor: Colors.grey300,
+    disabledColor: ColorManipulator.fade(Colors.darkBlack, 0.3),
+    pickerHeaderColor: Colors.cyan500,
+    clockCircleColor: ColorManipulator.fade(Colors.darkBlack, 0.07),
+    shadowColor: Colors.fullBlack,
   };
 
   var Theme = ThemeManager.getMuiTheme(MUI.Styles.LightRawTheme);

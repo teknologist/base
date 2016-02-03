@@ -2,6 +2,21 @@ React.helpers = {
   humanDate( date ) {
     return moment( date ).format( 'MMMM Do, YYYY' );
   },
+  isOwner( doc ) {
+    let userID = Meteor.userId();
+    let isAdmin = Roles.userIsInRole(userID, 'admin');
+    let isOwner = (doc.ownerID === userID);
+    return isOwner || isAdmin;
+
+  },
+  isAdmin() {
+    return Roles.userIsInRole(Meteor.userId(), 'admin');
+  },
+  printTags( tags ) {
+   return tags.map(function(tag) {
+      return tag.name+' ';
+    });
+  },
   userFullnameFromID( userId ) {
     var getService, getUser, services;
     getUser = Meteor.users.findOne({

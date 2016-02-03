@@ -22,7 +22,7 @@ GooglePhotosSchema = new SimpleSchema({
     type: String
   },
 });
-AddressSchema = new SimpleSchema({
+AddressSchema = Schemas.AddressSchema = new SimpleSchema({
   placeName: {
     type: String
   },
@@ -68,7 +68,7 @@ AddressSchema = new SimpleSchema({
   }
 });
 
-OutletsSchema = new SimpleSchema({
+OutletsSchema = Schemas.OutletsSchema = new SimpleSchema({
 
   name: {
     type: String,
@@ -119,14 +119,8 @@ OutletsSchema = new SimpleSchema({
     optional: true
   },
   tags: {
-    type: [String],
-    autoform: {
-      type: "tags",
-      afFieldInput: {
-        trimValue: true
-
-      }
-    },
+    type: [Object],
+    blackbox: true,
     optional: true
   },
 
@@ -144,7 +138,7 @@ OutletsSchema = new SimpleSchema({
     regEx: SimpleSchema.RegEx.Url
   },
   address: {
-    type: AddressSchema,
+    type: Schemas.AddressSchema,
     optional: false,
     label: '',
     autoform: {
@@ -190,7 +184,7 @@ OutletsSchema = new SimpleSchema({
 });
 
 
-Outlets.attachSchema(OutletsSchema);
+Outlets.attachSchema(Schemas.OutletsSchema);
 //
 //
 // if (Meteor.isServer) {

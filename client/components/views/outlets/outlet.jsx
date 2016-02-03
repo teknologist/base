@@ -1,4 +1,4 @@
-var {RaisedButton} = MUI;
+var {RaisedButton, FlatButton} = MUI;
 
 OutletRow = React.createClass({
   toggleOutlet() {
@@ -22,6 +22,15 @@ OutletRow = React.createClass({
     });
 
   },
+  editOutlet(row) {
+    let outletId = this.props.outlet._id;
+    let outlet = Outlets.findOne(outletId);
+    let newState = row.state;
+    newState.newOutlet = outlet;
+    newState.editMode = true;
+    row.setState(newState);
+  },
+
   render() {
     let outlet = this.props.outlet;
 
@@ -29,17 +38,28 @@ OutletRow = React.createClass({
       <td>{outlet.name}
       </td>
       <td className="vertical-align">{outlet.description}</td>
-      <td className="text-center vertical-align">{outlet.tags}</td>
+      <td className="text-center vertical-align">{React.helpers.printTags(outlet.tags)}</td>
       <td className="text-center vertical-align">{React.helpers.userFullnameFromID(outlet.ownerID)}</td>
       <td className="text-center vertical-align">{React.helpers.humanDate(outlet.createdAt)}</td>
-      <td className="text-center vertical-align">{outlet.active
-          ? 'Active'
-          : 'Inactive'}
-      </td>
-      <td className="text-center vertical-align">
-        <RaisedButton label={outlet.active
-          ? 'Disable'
-          : 'Enable'} primary={outlet.active} onClick={this.toggleOutlet}/></td>
+
+      { React.helpers.isAdmin()
+        ? <td className="text-center vertical-align"><span>{outlet.active
+              ? 'Active'
+              : 'Inactive'}
+            </span>
+          </td>
+        : ''}
+        { React.helpers.isOwner(this.props.outlet)
+          ? <td className="text-center vertical-align">
+              <FlatButton label='Edit' secondary={true} onClick={this.editOutlet.bind(this, this.props.parentRow)}/></td>
+          : ''
+  }
+      { React.helpers.isAdmin()
+        ? <td className="text-center vertical-align">
+            <FlatButton label={outlet.active
+              ? 'Disable'
+              : 'Enable'} primary={outlet.active} onClick={this.toggleOutlet}/></td>
+        : ''}
     </tr>;
   }
 });

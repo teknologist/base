@@ -1,2 +1,2 @@
-var Collections = {};
-var Schemas = {}
+Collections = {};
+Schemas = {};

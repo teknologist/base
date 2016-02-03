@@ -1,21 +1,21 @@
-var {RaisedButton, TextField} = MUI;
+var {RaisedButton, TextField, FlatButton} = MUI;
 
-const emptyOutlet = {
-  newOutlet: {
-    description: 'Describe the Outlet',
-    address: {},
-    fullAddress: '',
-    telephone: '',
-    tags: [],
-    serviceSchedule: ''
-  },
-  addressEdit: false
-};
 
 OutletsList = React.createClass({
   mixins: [ReactMeteorData],
   getInitialState() {
-    return emptyOutlet;
+    return {
+      newOutlet: {
+        description: 'Describe the Outlet',
+        address: {},
+        fullAddress: '',
+        telephone: '',
+        tags: [],
+        serviceSchedule: ''
+      },
+      addressEdit: false,
+      editMode: false
+    };
   },
   getMeteorData() {
     let outletsHandle = Meteor.subscribe('outlets');
@@ -43,7 +43,7 @@ OutletsList = React.createClass({
           className: 'text-center'
         }, {
           width: '20%',
-          label: 'Created At',
+          label: 'Created On',
           className: 'text-center'
         }, {
           width: '10%',
@@ -51,7 +51,11 @@ OutletsList = React.createClass({
           className: 'text-center'
         }, {
           width: '10%',
-          label: '',
+          label: 'Edit',
+          className: 'text-center'
+        }, {
+          width: '10%',
+          label: 'Change Status',
           className: 'text-center'
         }
       ],
@@ -168,7 +172,6 @@ OutletsList = React.createClass({
       ? place.opening_hours.weekday_text
       : ['Unknown']);
     let newOutlet = {
-      newOutlet: {
         name: place.name,
         description: 'Describe the Outlet',
         address: addressComponent,
@@ -180,15 +183,32 @@ OutletsList = React.createClass({
         createdAt: new Date(),
         serviceSchedule: serviceSchedule,
         opening_hours: place.opening_hours
-      }
     };
-    this.setState(newOutlet);
+    let newState = this.state;
+    newState.newOutlet=newOutlet;
+    this.setState(newState);
   },
   submitOutlet() {
     let newOutlet = this.state.newOutlet;
+    let isUpdate = false;
+    let cleanedOutlet = $.extend(true, {}, newOutlet);;
+      if(cleanedOutlet._id) {
+        isUpdate = true;
+        delete cleanedOutlet._id;
+      }
 
-    let outletValidator = OutletsSchema.namedContext("newOutlet");
-    if (outletValidator.validate(newOutlet)) {
+    let outletValidator = Schemas.OutletsSchema.namedContext("newOutlet");
+    if (outletValidator.validate(cleanedOutlet)) {
+      if(isUpdate) {
+        Meteor.call('updateOutlet', newOutlet, function(error, result) {
+          if (error) {
+            Bert.alert({title: 'Error saving Outlet', message: EJSON.stringify(error, {indent: true}), type: 'danger', style: 'growl-bottom-right', icon: 'fa-bell-o'});
+          } else {
+            Bert.alert({title: 'Outlet Saved', type: 'notification', style: 'growl-bottom-right', icon: 'fa-bell-o'});
+
+          }
+        });
+      } else {
       Meteor.call('submitOutlet', newOutlet, function(error, result) {
         if (error) {
           Bert.alert({title: 'Error saving Outlet', message: error, type: 'danger', style: 'growl-bottom-right', icon: 'fa-bell-o'});
@@ -197,6 +217,7 @@ OutletsList = React.createClass({
 
         }
       });
+    }
       this.resetForms();
     } else {
       let invalidKeys = outletValidator._invalidKeys;
@@ -210,24 +231,54 @@ OutletsList = React.createClass({
 
   },
   handleFieldChange(event) {
-    console.log(event.target.value);
-    let newState = this.state.newOutlet;
+    let newState = this.state;
 
-    newState[event.target.id] = event.target.value;
+    newState.newOutlet[event.target.id] = event.target.value;
     this.setState(newState);
   },
   resetForms() {
-    this.setState(emptyOutlet);
-    this.refs.geosuggest.clear();
-  },
-  handleDelete() {
+    if(this.refs.geosuggest) {
+      this.refs.geosuggest.clear();
+    }
+    this.setState({
+      newOutlet: {
+        description: 'Describe the Outlet',
+        address: {},
+        fullAddress: '',
+        telephone: '',
+        tags: [],
+        serviceSchedule: ''
+      },
+      addressEdit: false,
+      editMode: false
+    });
 
   },
-  handleAddition() {
+  handleDelete(i) {
+    let newState =   this.state;
+    newState.newOutlet.tags.splice(i,1);
+    this.setState(newState);
+  },
+  handleAddition(tag) {
+    let newState =   this.state;
+    newState.newOutlet.tags.push({name: tag});
+    this.setState(newState);
+
 
   },
   handleDrag() {
 
+  },
+  editAddress() {
+      let newState = this.state;
+      newState.addressEdit = true;
+          this.setState(newState);
+
+  },
+  doneEditAddress() {
+    let newState = this.state;
+    newState.addressEdit = false;
+        this.setState(newState);
   },
 
   render() {
@@ -236,31 +287,45 @@ OutletsList = React.createClass({
       {this.data.outlets
         ? <Table context="outlets" columns={this.data.columns}>
             {this.data.outlets.map((outlet) => {
-              return <OutletRow key={outlet._id} outlet={outlet}/>;
+              return <OutletRow key={outlet._id} parentRow={this} outlet={outlet} />;
             })}
           </Table>
         : <Loading/>}
 
       <PageHeader label="Add a new Outlet"/>
+      {this.state.editMode ?
+      ''
+      :
+ <Geosuggest placeholder="Type Here..." onSuggestSelect={this.selectSuggestion} ref="geosuggest"/>
+    }
 
-      <Geosuggest placeholder="Type Here..." onSuggestSelect={this.selectSuggestion} ref="geosuggest"/>
       {this.state.newOutlet.name
         ? <div>
             <form>
               <TextField fullWidth={true} hintText="Name" floatingLabelText="Name" value={this.state.newOutlet.name} id="name" onChange={this.handleFieldChange}/><br/>
               <TextField fullWidth={true} hintText="Description" floatingLabelText="Description" value={this.state.newOutlet.description} id="description" onChange={this.handleFieldChange}/><br/>
-              <TextField fullWidth={true} hintText="Address" floatingLabelText="Address" value={this.state.newOutlet.fullAddress} id="fullAddress" onChange={this.handleFieldChange}/><br/>
+
+              { this.state.addressEdit ?
+                    <RaisedButton label="Done editing address" secondary={true} onClick={this.doneEditAddress}/>
+              :
+                <TextField fullWidth={true} hintText="Address" floatingLabelText="Address" value={this.state.newOutlet.fullAddress} id="fullAddress" onClick={this.editAddress}/>
+
+            }
+
+<br/>
               <TextField fullWidth={true} hintText="Telephone" floatingLabelText="Telephone" value={this.state.newOutlet.telephone} id="telephone" onChange={this.handleFieldChange}/><br/>
                 <TextField fullWidth={true} hintText="Service Schedules" floatingLabelText="Service Schedules" value={this.state.newOutlet.serviceSchedule} id="serviceSchedule" onChange={this.handleFieldChange}/><br/>
-
+                <br/><br/>
 
                 <ReactTags tags={this.state.newOutlet.tags}
+                  labelField={'name'}
                      suggestions={this.data.suggestions}
                      handleDelete={this.handleDelete}
                      handleAddition={this.handleAddition}
                      handleDrag={this.handleDrag} />
+                     <FlatButton label="Save the Outlet" primary={true} onClick={this.submitOutlet} style={{ margin: '0 10 0 10' }}/>
+                   <FlatButton label="Cancel" secondary={true} onClick={this.resetForms} style={{ margin: '0 10 0 10' }}/>
 
-              <RaisedButton label="Save the Outlet" primary={true} onClick={this.submitOutlet}/>
             </form>
           </div>
         : ''

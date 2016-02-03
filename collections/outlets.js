@@ -11,8 +11,18 @@ Outlets.deny({
   update: () => true,
   remove: () => true
 });
-
-let AddressSchema = new SimpleSchema({
+GooglePhotosSchema = new SimpleSchema({
+  height: {
+    type: Number
+  },
+  width: {
+    type: Number
+  },
+  link: {
+    type: String
+  },
+});
+AddressSchema = new SimpleSchema({
   placeName: {
     type: String
   },
@@ -36,14 +46,16 @@ let AddressSchema = new SimpleSchema({
   },
   street: {
     type: String,
-    max: 100
+    max: 100,
+    optional: true
   },
   city: {
     type: String,
     max: 50
   },
   state: {
-    type: String
+    type: String,
+    optional: true
   },
   zip: {
     type: String,
@@ -54,7 +66,7 @@ let AddressSchema = new SimpleSchema({
   }
 });
 
-let OutletsSchema = new SimpleSchema({
+OutletsSchema = new SimpleSchema({
 
   name: {
     type: String,
@@ -65,7 +77,7 @@ let OutletsSchema = new SimpleSchema({
     label: "The Outlet description"
   },
 
-  createAt: {
+  createdAt: {
     type: Date,
     autoValue: function() {
       if (this.isInsert) {
@@ -100,7 +112,7 @@ let OutletsSchema = new SimpleSchema({
     },
     optional: true
   },
-  OwnerID: {
+  ownerID: {
     type: String,
     optional: true
   },
@@ -112,7 +124,8 @@ let OutletsSchema = new SimpleSchema({
         trimValue: true
 
       }
-    }
+    },
+    optional: true
   },
 
 
@@ -137,9 +150,13 @@ let OutletsSchema = new SimpleSchema({
     }
   },
   serviceSchedule: {
-    type: String,
+    type: [String],
     optional: true,
     label: "Opening hours"
+  },
+  fullAddress: {
+    type: String,
+    optional: true
   },
   opening_hours: {
     type: Object,
@@ -161,6 +178,10 @@ let OutletsSchema = new SimpleSchema({
   active: {
     type: Boolean,
     defaultValue: true
+  },
+  photos: {
+    type: [GooglePhotosSchema],
+    optional: true
   }
 
 });

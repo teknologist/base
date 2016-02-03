@@ -30,7 +30,7 @@ OutletRow = React.createClass({
       </td>
       <td className="vertical-align">{outlet.description}</td>
       <td className="text-center vertical-align">{outlet.tags}</td>
-      <td className="text-center vertical-align">{outlet.OwnerID}</td>
+      <td className="text-center vertical-align">{React.helpers.userFullnameFromID(outlet.ownerID)}</td>
       <td className="text-center vertical-align">{React.helpers.humanDate(outlet.createdAt)}</td>
       <td className="text-center vertical-align">{outlet.active
           ? 'Active'
@@ -39,7 +39,7 @@ OutletRow = React.createClass({
       <td className="text-center vertical-align">
         <RaisedButton label={outlet.active
           ? 'Disable'
-          : 'Enable'} primary={!outlet.active} onClick={this.toggleOutlet}/></td>
+          : 'Enable'} primary={outlet.active} onClick={this.toggleOutlet}/></td>
     </tr>;
   }
 });

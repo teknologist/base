@@ -2,19 +2,18 @@ Meteor.methods({
 
   submitOutlet(outlet) {
       check(outlet, Object);
+      outlet.ownerID = Meteor.userId();
       let isAdmin = Roles.userIsInRole(Meteor.userId(), 'admin');
-      if (isAdmin) {
-        console.log("Inserting Outlet: " + EJSON.stringify(outlet, {
-          indent: true
-        }));
-        return Outlets.insert(outlet);
+      if (!isAdmin) {
+        outlet.active = false;
 
-
-      } else {
-        throw new Meteor.Error('unauthorized',
-          'Sorry, you do not have the rights to create an Outlet.'
-        );
       }
+      console.log("Inserting Outlet: " + EJSON.stringify(outlet, {
+        indent: true
+      }));
+      return Outlets.insert(outlet);
+
+
 
     },
     toggleOutlet(outletId) {

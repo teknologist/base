@@ -58,3 +58,4 @@ modules
 cosmos:browserify
 ultimatejs:tracker-react
 kadira:flow-router-ssr
+dburles:google-maps

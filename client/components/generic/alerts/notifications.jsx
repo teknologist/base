@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTags from 'react-tag-input';
 
 import Divider from 'material-ui/lib/divider';
 import Badge from 'material-ui/lib/badge';

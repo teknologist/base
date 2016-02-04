@@ -1,12 +1,48 @@
 import React from 'react';
-
+import {WithContext as ReactTags} from 'react-tag-input'
 import TextField from 'material-ui/lib/text-field';
-
 import FlatButton from 'material-ui/lib/flat-button';
+import Geosuggest from 'react-geosuggest';
 
+const columns = [
+
+  {
+    width: '20%',
+    label: 'Name',
+    className: ''
+  }, {
+    width: '20%',
+    label: 'Description',
+    className: 'text-center'
+  }, {
+    width: '10%',
+    label: 'Tags',
+    className: 'text-center'
+  }, {
+    width: '10%',
+    label: 'Owner',
+    className: 'text-center'
+  }, {
+    width: '20%',
+    label: 'Created On',
+    className: 'text-center'
+  }, {
+    width: '10%',
+    label: 'Active ?',
+    className: 'text-center'
+  }, {
+    width: '10%',
+    label: 'Edit',
+    className: 'text-center'
+  }, {
+    width: '10%',
+    label: 'Change Status',
+    className: 'text-center'
+  }
+];
 
 OutletsList = React.createClass({
-  mixins: [ TrackerReact ],
+  mixins: [TrackerReact],
   getInitialState() {
     return {
       newOutlet: {
@@ -21,54 +57,23 @@ OutletsList = React.createClass({
       editMode: false
     };
   },
-  getMeteorData() {
+  componentDidMount: function() {
     let outletsHandle = Meteor.subscribe('outlets');
     let suggestionsHandle = Meteor.subscribe('tags');
     let usersHandle = Meteor.subscribe('users-infos');
+  },
+  getMeteorData() {
 
+    let outlets = Outlets.find({}, {
+      sort: {
+        createAt: -1
+      }
+    }).fetch();
+
+    console.log("found " + outlets.length + " outlets.");
     return {
       currentUser: Meteor.user(),
-      columns: [
-
-        {
-          width: '20%',
-          label: 'Name',
-          className: ''
-        }, {
-          width: '20%',
-          label: 'Description',
-          className: 'text-center'
-        }, {
-          width: '10%',
-          label: 'Tags',
-          className: 'text-center'
-        }, {
-          width: '10%',
-          label: 'Owner',
-          className: 'text-center'
-        }, {
-          width: '20%',
-          label: 'Created On',
-          className: 'text-center'
-        }, {
-          width: '10%',
-          label: 'Active ?',
-          className: 'text-center'
-        }, {
-          width: '10%',
-          label: 'Edit',
-          className: 'text-center'
-        }, {
-          width: '10%',
-          label: 'Change Status',
-          className: 'text-center'
-        }
-      ],
-      outlets: Outlets.find({}, {
-        sort: {
-          createAt: -1
-        }
-      }).fetch(),
+      outlets: outlets,
       suggestions: Tags.find({}).fetch().map(function(tag) {
         return tag.name;
       })
@@ -177,58 +182,64 @@ OutletsList = React.createClass({
       ? place.opening_hours.weekday_text
       : ['Unknown']);
     let newOutlet = {
-        name: place.name,
-        description: 'Describe the Outlet',
-        address: addressComponent,
-        fullAddress: place.formatted_address,
-        telephone: place.international_phone_number,
-        active: true,
-        creatorID: this.getMeteorData().currentUser._id,
-        tags: this.state.newOutlet.tags,
-        createdAt: new Date(),
-        serviceSchedule: serviceSchedule,
-        opening_hours: place.opening_hours
+      name: place.name,
+      description: 'Describe the Outlet',
+      address: addressComponent,
+      fullAddress: place.formatted_address,
+      telephone: place.international_phone_number,
+      active: true,
+      creatorID: this.getMeteorData().currentUser._id,
+      tags: this.state.newOutlet.tags,
+      createdAt: new Date(),
+      serviceSchedule: serviceSchedule,
+      opening_hours: place.opening_hours
     };
     let newState = this.state;
-    newState.newOutlet=newOutlet;
+    newState.newOutlet = newOutlet;
     this.setState(newState);
   },
   submitOutlet() {
     let newOutlet = this.state.newOutlet;
     let isUpdate = false;
     let cleanedOutlet = $.extend(true, {}, newOutlet);;
-      if(cleanedOutlet._id) {
-        isUpdate = true;
-        delete cleanedOutlet._id;
-      }
+    if (cleanedOutlet._id) {
+      isUpdate = true;
+      delete cleanedOutlet._id;
+    }
 
-    let outletValidator = Schemas.OutletsSchema.namedContext("newOutlet");
+    let outletValidator = OutletsSchema.namedContext("newOutlet");
     if (outletValidator.validate(cleanedOutlet)) {
-      if(isUpdate) {
+      if (isUpdate) {
         Meteor.call('updateOutlet', newOutlet, function(error, result) {
           if (error) {
-            Bert.alert({title: 'Error saving Outlet', message: EJSON.stringify(error, {indent: true}), type: 'danger', style: 'growl-bottom-right', icon: 'fa-bell-o'});
+            Bert.alert({
+              title: 'Error saving Outlet',
+              message: EJSON.stringify(error, {indent: true}),
+              type: 'danger',
+              style: 'growl-bottom-right',
+              icon: 'fa-bell-o'
+            });
           } else {
             Bert.alert({title: 'Outlet Saved', type: 'notification', style: 'growl-bottom-right', icon: 'fa-bell-o'});
 
           }
         });
       } else {
-      Meteor.call('submitOutlet', newOutlet, function(error, result) {
-        if (error) {
-          Bert.alert({title: 'Error saving Outlet', message: error, type: 'danger', style: 'growl-bottom-right', icon: 'fa-bell-o'});
-        } else {
-          Bert.alert({title: 'Outlet Saved', type: 'notification', style: 'growl-bottom-right', icon: 'fa-bell-o'});
+        Meteor.call('submitOutlet', newOutlet, function(error, result) {
+          if (error) {
+            Bert.alert({title: 'Error saving Outlet', message: error, type: 'danger', style: 'growl-bottom-right', icon: 'fa-bell-o'});
+          } else {
+            Bert.alert({title: 'Outlet Saved', type: 'notification', style: 'growl-bottom-right', icon: 'fa-bell-o'});
 
-        }
-      });
-    }
+          }
+        });
+      }
       this.resetForms();
     } else {
       let invalidKeys = outletValidator._invalidKeys;
-      let message= 'Check ';
+      let message = 'Check ';
       message = message + invalidKeys.map(function(invalidKey) {
-          return invalidKey.name;
+        return invalidKey.name;
       });
 
       Bert.alert({title: 'Invalid Outlet', message: message, type: 'danger', style: 'growl-bottom-right', icon: 'fa-bell-o'});
@@ -242,7 +253,7 @@ OutletsList = React.createClass({
     this.setState(newState);
   },
   resetForms() {
-    if(this.refs.geosuggest) {
+    if (this.refs.geosuggest) {
       this.refs.geosuggest.clear();
     }
     this.setState({
@@ -260,79 +271,72 @@ OutletsList = React.createClass({
 
   },
   handleDelete(i) {
-    let newState =   this.state;
-    newState.newOutlet.tags.splice(i,1);
+    let newState = this.state;
+    newState.newOutlet.tags.splice(i, 1);
     this.setState(newState);
   },
   handleAddition(tag) {
-    let newState =   this.state;
+    let newState = this.state;
     newState.newOutlet.tags.push({name: tag});
     this.setState(newState);
 
-
   },
-  handleDrag() {
-
-  },
+  handleDrag() {},
   editAddress() {
-      let newState = this.state;
-      newState.addressEdit = true;
-          this.setState(newState);
+    let newState = this.state;
+    newState.addressEdit = true;
+    this.setState(newState);
 
   },
   doneEditAddress() {
     let newState = this.state;
     newState.addressEdit = false;
-        this.setState(newState);
+    this.setState(newState);
   },
 
   render() {
+    let outlets = this.getMeteorData().outlets;
     return <div className="outlets">
       <PageHeader label="Outlets"/>
       {this.getMeteorData().outlets
-        ? <Table context="outlets" columns={this.getMeteorData().columns}>
-            {this.getMeteorData().outlets.map((outlet) => {
-              return <OutletRow key={outlet._id} parentRow={this} outlet={outlet} />;
+        ? <Table context="outlets" columns={columns}>
+            {outlets.map((outlet) => {
+              return <OutletRow key={outlet._id} parentRow={this} outlet={outlet}/>;
             })}
           </Table>
         : <Loading/>}
 
       <PageHeader label="Add a new Outlet"/>
-      {this.state.editMode ?
-      ''
-      :
- <Geosuggest placeholder="Type Here..." onSuggestSelect={this.selectSuggestion} ref="geosuggest"/>
-    }
+      {this.state.editMode
+        ? ''
+        : <Geosuggest placeholder="Type Here..." onSuggestSelect={this.selectSuggestion} ref="geosuggest"/>
+}
 
       {this.state.newOutlet.name
         ? <div>
-            <form>
-              <TextField fullWidth={true} hintText="Name" floatingLabelText="Name" value={this.state.newOutlet.name} id="name" onChange={this.handleFieldChange}/><br/>
-              <TextField fullWidth={true} hintText="Description" floatingLabelText="Description" value={this.state.newOutlet.description} id="description" onChange={this.handleFieldChange}/><br/>
+            <TextField fullWidth={true} hintText="Name" floatingLabelText="Name" value={this.state.newOutlet.name} id="name" onChange={this.handleFieldChange}/><br/>
+            <TextField fullWidth={true} hintText="Description" floatingLabelText="Description" value={this.state.newOutlet.description} id="description" onChange={this.handleFieldChange}/><br/>
 
-              { this.state.addressEdit ?
-                    <RaisedButton label="Done editing address" secondary={true} onClick={this.doneEditAddress}/>
-              :
-                <TextField fullWidth={true} hintText="Address" floatingLabelText="Address" value={this.state.newOutlet.fullAddress} id="fullAddress" onClick={this.editAddress}/>
+            {this.state.addressEdit
+              ? <FlatButton label="Done editing address" secondary={true} onClick={this.doneEditAddress}/>
+              : <TextField fullWidth={true} hintText="Address" floatingLabelText="Address" value={this.state.newOutlet.fullAddress} id="fullAddress" onClick={this.editAddress}/>
+}
 
-            }
+            <br/>
+            <TextField fullWidth={true} hintText="Telephone" floatingLabelText="Telephone" value={this.state.newOutlet.telephone} id="telephone" onChange={this.handleFieldChange}/><br/>
+            <TextField fullWidth={true} hintText="Service Schedules" floatingLabelText="Service Schedules" value={this.state.newOutlet.serviceSchedule} id="serviceSchedule" onChange={this.handleFieldChange}/><br/>
+            <br/><br/>
 
-<br/>
-              <TextField fullWidth={true} hintText="Telephone" floatingLabelText="Telephone" value={this.state.newOutlet.telephone} id="telephone" onChange={this.handleFieldChange}/><br/>
-                <TextField fullWidth={true} hintText="Service Schedules" floatingLabelText="Service Schedules" value={this.state.newOutlet.serviceSchedule} id="serviceSchedule" onChange={this.handleFieldChange}/><br/>
-                <br/><br/>
+            <ReactTags tags={this.state.newOutlet.tags} labelField={'name'} suggestions={this.getMeteorData().suggestions} handleDelete={this.handleDelete} handleAddition={this.handleAddition} handleDrag={this.handleDrag}/>
+            <FlatButton label="Save the Outlet" primary={true} onClick={this.submitOutlet} style={{
+              margin: '0 10 0 10'
+            }}/>
+            <FlatButton label="Cancel" secondary={true} onClick={this.resetForms} style={{
+              margin: '0 10 0 10'
+            }}/>
 
-                <ReactTags tags={this.state.newOutlet.tags}
-                  labelField={'name'}
-                     suggestions={this.getMeteorData().suggestions}
-                     handleDelete={this.handleDelete}
-                     handleAddition={this.handleAddition}
-                     handleDrag={this.handleDrag} />
-                     <FlatButton label="Save the Outlet" primary={true} onClick={this.submitOutlet} style={{ margin: '0 10 0 10' }}/>
-                   <FlatButton label="Cancel" secondary={true} onClick={this.resetForms} style={{ margin: '0 10 0 10' }}/>
-
-            </form>
           </div>
+
         : ''
 }
       <div id="google-attribution"></div>

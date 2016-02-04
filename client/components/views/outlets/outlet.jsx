@@ -1,5 +1,5 @@
 import React from 'react';
-import {RaisedButton, FlatButton} from'material-ui/lib';
+import FlatButton from 'material-ui/lib/flat-button';
 
 OutletRow = React.createClass({
   toggleOutlet() {

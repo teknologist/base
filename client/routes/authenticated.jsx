@@ -10,7 +10,7 @@ authenticatedRoutes.route( '/dashboard', {
   name: 'dashboard',
   action() {
     mount(App, {
-        yield: () => (<Dashboard />)
+        yield: (<Dashboard />)
       });
   }
 });

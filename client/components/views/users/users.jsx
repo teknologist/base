@@ -2,17 +2,17 @@ import React from 'react';
 UsersList = React.createClass({
   mixins: [ TrackerReact ],
   getMeteorData() {
-    let handle = Meteor.subscribe( 'usersAdmin' );
+    let handle = Meteor.subscribe( 'users-infos' );
 
     return {
       currentUser: Meteor.user(),
       columns: [
-
+        { width: '30%', label: 'Name', className: 'text-center' },
         { width: '30%', label: 'Email', className: 'text-center' },
-        { width: '33%', label: 'Roles', className: 'text-center' },
-        { width: '25%', label: 'Created At', className: 'text-center' }
+        { width: '10%', label: 'Roles', className: 'text-center' },
+        { width: '30%', label: 'Created At', className: 'text-center' }
       ],
-      users: Meteor.users.find( { }, { sort: { name: 1 } } ).fetch()
+      users: Meteor.users.find( { }, { sort: { createdAt: -1 } } ).fetch()
 
     };
   },

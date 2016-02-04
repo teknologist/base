@@ -4,6 +4,7 @@ import TextField from 'material-ui/lib/text-field';
 import FlatButton from 'material-ui/lib/flat-button';
 import Geosuggest from 'react-geosuggest';
 
+const geoTypes = ['establishment'];
 const columns = [
 
   {
@@ -309,7 +310,7 @@ OutletsList = React.createClass({
       <PageHeader label="Add a new Outlet"/>
       {this.state.editMode
         ? ''
-        : <Geosuggest placeholder="Type Here..." onSuggestSelect={this.selectSuggestion} ref="geosuggest"/>
+        : <Geosuggest placeholder="Type Here..." onSuggestSelect={this.selectSuggestion} ref="geosuggest" types={ geoTypes}/>
 }
 
       {this.state.newOutlet.name
